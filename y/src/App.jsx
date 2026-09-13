@@ -1,20 +1,30 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 import Navbar from './Components/Navbar'
 import PostForm from './Components/PostForm'
+import PostList from './Components/PostList'
 function App() {
   const [posts, setPosts] = useState([])
+  const [editingPost, setEditingPost] = useState(null)
   function handleAddPost(newPost){
     setPosts([...posts,newPost])
   }
+  function handleEditPost(post){
+    setEditingPost(post)
+  }
+  function handleDeletePost(postId){
+    setPosts(posts.filter(post => post.id
+      !== postId
+    ))
+  }
+
   return (
 <>  
 <Navbar/>
-<PostForm onAddPost={handleAddPost}/>
-<p>{JSON.stringify(posts)}</p>
+<div className="container mx-auto p-4 flex flex-col gap-4 md:flex-row items-start">
+  <PostForm onAddPost={handleAddPost} editingPost = {editingPost}/>
+  <PostList posts={posts} onDeletePost={handleDeletePost} onEditPost={handleEditPost}/>
+</div>
 </>
 
   )
