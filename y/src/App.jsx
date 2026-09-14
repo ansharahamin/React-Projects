@@ -17,12 +17,15 @@ function App() {
       !== postId
     ))
   }
+  function handleUpdatePost(updatedPost){
+    setPosts(posts.map((post)=>(post.id===updatedPost.id? updatedPost : post)))
+  }
 
   return (
 <>  
 <Navbar/>
 <div className="container mx-auto p-4 flex flex-col gap-4 md:flex-row items-start">
-  <PostForm onAddPost={handleAddPost} editingPost = {editingPost}/>
+  <PostForm onAddPost={handleAddPost} editingPost = {editingPost} onUpdatePost={handleUpdatePost}/>
   <PostList posts={posts} onDeletePost={handleDeletePost} onEditPost={handleEditPost}/>
 </div>
 </>

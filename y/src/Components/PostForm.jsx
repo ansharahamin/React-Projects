@@ -1,8 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 const PostForm = (props) => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    useEffect(()=>{
+if(props.editingPost){
+    setTitle(props.editingPost.title)
+    setDescription(props.editingPost.description)
+}
+    },[props.editingPost])
   return (
     <form className='flex flex-col gap-3  border-3 shadow-gray-100 border-rose-200  rounded-2xl p-5 shadow-lg bg-[linear-gradient(160deg,#fdf2f8_0%,#ffffff_100%)] w-full md:w-[35%] h-[calc(100vh-300px)]'
      onSubmit={(e)=>{
